@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduBot | Login</title>
+</head>
+<body style="margin: 0; font-family: sans-serif; background-color: #f2f2f2; display: flex; align-items: center; justify-content: center; height: 100vh;">
+
+  <div style="background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px;">
+    
+    <!-- STEP 1: Enter Phone -->
+    <div id="step-login" style="display: block;">
+      <h2 style="text-align: center; margin-bottom: 20px;">Login</h2>
+      <form id="loginForm">
+        <label style="display: block; margin-bottom: 8px;">Mobile Number</label>
+        <input id="phoneInput" type="tel" placeholder="Enter 10-digit mobile" required 
+               style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc;" />
+        <button type="submit" 
+                style="width: 100%; padding: 12px; background-color: #1976d2; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+          Get OTP
+        </button>
+      </form>
+    </div>
+
+    <!-- STEP 2: Enter OTP -->
+    <div id="step-verify" style="display: none;">
+      <h2 style="text-align: center; margin-bottom: 10px;">Verify OTP</h2>
+      <p id="phoneDisplay" style="text-align: center; color: #555;"></p>
+      <form id="otpForm">
+        <input type="text" placeholder="Enter OTP" required 
+               style="width: 100%; padding: 10px; margin-top: 15px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc;" />
+        <button type="submit" 
+                style="width: 100%; padding: 12px; background-color: #388e3c; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+          Verify OTP
+        </button>
+      </form>
+    </div>
+
+    <div id="recaptcha-container"></div>
+  </div>
+
+</body>
+</html>
