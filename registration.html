@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduBot | Registration</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f7fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .splash-container, .form-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      display: none;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .logo {
+      width: 90px;
+      margin-bottom: 15px;
+    }
+
+    h1, h2 {
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    p {
+      color: #555;
+      font-size: 0.95em;
+      margin-bottom: 20px;
+    }
+
+    .role-options {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .box {
+      border-radius: 10px;
+      padding: 20px;
+      cursor: pointer;
+      background-color: #eaf4fc;
+      transition: 0.2s;
+    }
+
+    .box.teacher { background-color: #d5f5e3; }
+    .box.parent { background-color: #fcebd5; }
+
+    .box:hover {
+      background-color: #d6eaf8;
+    }
+
+    .icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+      color: #2c7be5;
+    }
+
+    form input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #2c7be5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1a5dc2;
+    }
+
+    .resend {
+      margin-top: 12px;
+      font-size: 0.85em;
+      color: #555;
+    }
+
+    .resend a {
+      color: #2c7be5;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Splash Screen -->
+  <div class="splash-container active" id="splashScreen">
+    <img src="https://via.placeholder.com/100x100.png?text=EduBot" alt="EduBot Logo" class="logo" />
+    <h1>Choose one of the following</h1>
+
+    <div class="role-options">
+      <div class="box teacher" onclick="showRegistration('Teacher')">
+        <i class="fas fa-chalkboard-teacher icon"></i>
+        <h2>Teacher</h2>
+        <p>Manage students, view reports, send announcements.</p>
+      </div>
+      <div class="box parent" onclick="showRegistration('Parent/Student')">
+        <i class="fas fa-user-graduate icon"></i>
+        <h2>Parent / Student</h2>
+        <p>Track performance, view attendance, get updates.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registration & OTP -->
+  <div class="form-container" id="formContainer">
+    <img src="edubot-logo.png" alt="EduBot Logo" class="logo" />
+    <!-- Back Button -->
+<div id="backButton" class="back-btn" onclick="goBack()">
+  <i class="fas fa-arrow-left"></i> Back
+</div>
+
+    <div id="step-register">
+      <h2>Welcome to EduBot</h2>
+      <p>Please enter your phone number</p>
+      <form id="registerForm">
+        <input type="tel" placeholder="Enter phone number" required id="phoneInput" />
+        <button type="submit">Send OTP</button>
+      </form>
+    </div>
+
+    <div id="step-verify" style="display: none;">
+      <h2>Enter OTP</h2>
+      <p id="phoneDisplay"></p>
+      <form id="otpForm">
+        <input type="text" placeholder="Enter the OTP" required maxlength="6" />
+        <button type="submit">Verify</button>
+        <p class="resend">Didn't receive OTP? <a href="#" id="resendOtpLink">Resend</a></p>
+        <p><a href="#" id="editPhoneLink">Edit phone number</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function showRegistration(role) {
+      document.getElementById("splashScreen").style.display = "none";
+      document.getElementById("formContainer").classList.add("active");
+    }
+
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const phoneNumber = document.getElementById("phoneInput").value;
+      document.getElementById("phoneDisplay").textContent = `We sent an OTP to: ${phoneNumber}`;
+      document.getElementById("step-register").style.display = "none";
+      document.getElementById("step-verify").style.display = "block";
+    });
+
+    document.getElementById("otpForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("OTP Verified! (demo only)");
+    });
+
+    document.getElementById("resendOtpLink").addEventListener("click", function (e) {
+      e.preventDefault();
+      alert("OTP Resent! (demo only)");
+    });
+
+    document.getElementById("editPhoneLink").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("step-register").style.display = "block";
+      document.getElementById("step-verify").style.display = "none";
+    });
+    // Back button function to go back to the splash screen
+    function goBack() {
+      window.location.href = 'registration.html'; // Or you can use history.back() if you prefer
+    }
+  </script>
+        </html>
