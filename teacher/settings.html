@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teacher Settings</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f4f8;
+      color: #333;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: #3498db;
+      font-weight: bold;
+    }
+
+    .profile-thumb {
+      width: 40px;
+      height: 40px;
+      background: #ccc;
+      border-radius: 50%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2c3e50;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #34495e;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .card button {
+      margin-top: 15px;
+      background-color: #3498db;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-top: 10px;
+    }
+
+    .toggle-group {
+      margin-top: 12px;
+    }
+
+    .toggle-group label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: normal;
+    }
+
+    .readonly {
+      background-color: #f5f5f5;
+      cursor: not-allowed;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+
+    .modal-content input {
+      margin-top: 10px;
+    }
+
+    .modal-content button {
+      margin-top: 15px;
+      margin-right: 10px;
+    }
+
+    .logout-button {
+      display: block;
+      width: 200px;
+      margin: 40px auto 0;
+      padding: 12px 0;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="back-btn">← Back</a>
+    <div class="profile-thumb"></div>
+  </header>
+
+  <h2>Settings</h2>
+
+  <!-- Card 1: Profile Info -->
+  <div class="card" id="profileCard">
+    <h3>Profile Information</h3>
+    <label>Name</label>
+    <input type="text" id="name" value="John Doe" disabled>
+    <label>Email</label>
+    <input type="email" id="email" value="john@example.com" disabled>
+    <label>Phone Number</label>
+    <input type="text" id="phone" value="+91 9876543210" disabled>
+    <button id="editBtn" onclick="enableProfileEdit()">Edit</button>
+    <button id="submitBtn" style="display:none;" onclick="submitProfileChanges()">Submit</button>
+  </div>
+
+  <!-- Card 2: Password -->
+  <div class="card">
+    <h3>Change Password</h3>
+    <label>Old Password</label>
+    <input type="password">
+    <label>New Password</label>
+    <input type="password">
+    <label>Confirm New Password</label>
+    <input type="password">
+    <button>Change Password</button>
+  </div>
+
+  <!-- Card 3: Profile Photo -->
+  <div class="card">
+    <h3>Profile Photo</h3>
+    <img src="https://via.placeholder.com/80" alt="Profile Photo">
+    <div>
+      <button onclick="openModal()">Change</button>
+      <button>Delete</button>
+    </div>
+  </div>
+
+  <!-- Card 4: Notification Preferences -->
+  <div class="card">
+    <h3>Notification Preferences</h3>
+    <div class="toggle-group">
+      <label><input type="checkbox" checked> New Announcements</label>
+      <label><input type="checkbox"> New Messages</label>
+      <label><input type="checkbox" checked> Upcoming Events</label>
+      <label><input type="checkbox"> Upcoming Classes</label>
+    </div>
+  </div>
+
+  <!-- Card 5: Teacher Defaults -->
+  <div class="card">
+    <h3>Teacher Defaults</h3>
+    <label>Assigned Classes</label>
+    <input type="text" value="10A, 11B" class="readonly" disabled>
+    <label>Teaching Subjects</label>
+    <input type="text" value="Math, Physics" class="readonly" disabled>
+  </div>
+
+  <!-- Card 6: Privacy & Security -->
+  <div class="card">
+    <h3>Privacy & Security</h3>
+    <label>Last Seen Visibility</label>
+    <select>
+      <option>Everyone</option>
+      <option>My Students</option>
+      <option>Nobody</option>
+    </select>
+    <label>Who Can Message You</label>
+    <select>
+      <option>All</option>
+      <option>Assigned Students Only</option>
+    </select>
+  </div>
+
+  <!-- Modal for profile photo -->
+  <div class="modal" id="photoModal">
+    <div class="modal-content">
+      <h3>Upload New Photo</h3>
+      <input type="file" id="uploadInput" onchange="previewImage(event)">
+      <img id="preview" src="#" style="display:none;">
+      <div>
+        <button onclick="closeModal()">Cancel</button>
+        <button onclick="uploadPhoto()">Upload & Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Button -->
+  <button class="logout-button">Logout</button>
+
+  <script>
+    function enableProfileEdit() {
+      document.getElementById('name').disabled = false;
+      document.getElementById('email').disabled = false;
+      document.getElementById('phone').disabled = false;
+      document.getElementById('submitBtn').style.display = "inline-block";
+      document.getElementById('editBtn').style.display = "none";
+    }
+
+    function submitProfileChanges() {
+      document.getElementById('name').disabled = true;
+      document.getElementById('email').disabled = true;
+      document.getElementById('phone').disabled = true;
+      document.getElementById('submitBtn').style.display = "none";
+      document.getElementById('editBtn').style.display = "inline-block";
+      alert("Profile changes submitted!");
+    }
+
+    function openModal() {
+      document.getElementById('photoModal').style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById('photoModal').style.display = "none";
+    }
+
+    function previewImage(event) {
+      const img = document.getElementById('preview');
+      img.src = URL.createObjectURL(event.target.files[0]);
+      img.style.display = 'block';
+    }
+
+    function uploadPhoto() {
+      alert("Photo uploaded and saved!");
+      closeModal();
+    }
+  </script>
+</body>
+  </html>
