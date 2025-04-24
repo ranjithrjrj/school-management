@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduBot | Teacher Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(90deg, #007bff, #0056b3);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    main {
+      padding: 30px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+    .card h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    .card p {
+      margin: 10px 0 20px;
+      font-size: 0.95rem;
+      color: #666;
+    }
+    .card button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .blue { background: #007bff; color: white; }
+    .blue:hover { background: #0056b3; }
+    .green { background: #28a745; color: white; }
+    .green:hover { background: #1e7e34; }
+    .yellow { background: #ffc107; color: black; }
+    .yellow:hover { background: #e0a800; }
+    .teal { background: #17a2b8; color: white; }
+    .teal:hover { background: #117a8b; }
+    .purple { background: #6f42c1; color: white; }
+    .purple:hover { background: #5936a2; }
+    .red { background: #dc3545; color: white; }
+    .red:hover { background: #a71d2a; }
+    .dark { background: #343a40; color: white; }
+    .dark:hover { background: #1d2124; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome, Teacher</h1>
+    <p>Today is <span id="todayDate"></span></p>
+  </header>
+  
+  <main>
+    <div class="card">
+      <h2>Class Management</h2>
+      <p>Manage your subjects and student attendance.</p>
+      <button class="blue">Manage Classes</button>
+    </div>
+    <div class="card">
+      <h2>Student Overview</h2>
+      <p>Track student performance and profiles.</p>
+      <button class="green">View Students</button>
+    </div>
+    <div class="card">
+      <h2>Assignments & Tests</h2>
+      <p>Create and review assignments and tests.</p>
+      <button class="yellow">Tests</button>
+      <button class="yellow">Assignments</button>
+    </div>
+    <div class="card">
+      <h2>Communication</h2>
+      <p>Post updates and messages to students.</p>
+      <button class="teal">Announcements</button>
+      <button class="teal">Messaging</button>
+    </div>
+    <div class="card">
+      <h2>Timetable & Events</h2>
+      <p>Check your weekly schedule and events.</p>
+      <button class="purple">View Timetable</button>
+    </div>
+    <div class="card">
+      <h2>Reports & Analytics</h2>
+      <p>Download class performance reports.</p>
+      <button class="red">Download Report</button>
+    </div>
+    <div class="card">
+      <h2>Settings</h2>
+      <p>Edit your profile or logout.</p>
+      <button class="dark">Settings</button>
+    </div>
+  </main>
+
+  <script>
+    const today = new Date().toLocaleDateString('en-IN', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+    document.getElementById("todayDate").innerText = today;
+  </script>
+</body>
+</html>
