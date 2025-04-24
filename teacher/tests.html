@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tests | EduBot</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f2f4f8;
+      padding: 20px;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .back-btn {
+      cursor: pointer;
+      font-size: 18px;
+      color: #007bff;
+    }
+    .profile-thumb {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: gray;
+    }
+    .header h2 {
+      text-align: center;
+      margin: 10px 0 20px;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 20px;
+      margin: 0 10px;
+      cursor: pointer;
+      background: #eee;
+      border-radius: 5px 5px 0 0;
+    }
+    .tab.active {
+      background: #007bff;
+      color: white;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    .filters select, .filters input {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .accordion-header {
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .accordion-body {
+      display: none;
+      margin-top: 10px;
+    }
+    .actions {
+      margin-top: 10px;
+      text-align: right;
+    }
+    .actions button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 4px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+    }
+    .modal-content input,
+    .modal-content select,
+    .modal-content textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+    .modal-actions button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      color: white;
+    }
+    .btn-close { background: #dc3545; }
+    .btn-save { background: #28a745; }
+
+    .floating-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #007bff;
+      color: white;
+      padding: 14px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="back-btn" onclick="history.back()">← Back</div>
+  <div class="profile-thumb"></div>
+</div>
+
+<div class="header">
+  <h2>Manage Tests</h2>
+</div>
+
+<div class="filters">
+  <select>
+    <option>Class 10</option>
+    <option>Class 12</option>
+  </select>
+  <select>
+    <option>Section A</option>
+    <option>Section B</option>
+  </select>
+  <input type="date"/>
+  <input type="date"/>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('upcoming')">Upcoming</div>
+  <div class="tab" onclick="switchTab('completed')">Completed</div>
+</div>
+
+<div id="upcoming" class="tab-content active">
+  <div class="card">
+    <div class="accordion-header" onclick="toggleAccordion(this)">Math Unit Test - Class 10A</div>
+    <div class="accordion-body">
+      <p><strong>Date:</strong> 25 Apr 2025</p>
+      <p><strong>Total Marks:</strong> 50</p>
+      <p><strong>Submissions:</strong> 0/30</p>
+      <div class="actions">
+        <button>Manage Test</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="completed" class="tab-content">
+  <div class="card">
+    <div class="accordion-header" onclick="toggleAccordion(this)">Science Midterm - Class 10B</div>
+    <div class="accordion-body">
+      <p><strong>Date:</strong> 10 Apr 2025</p>
+      <p><strong>Total Marks:</strong> 50</p>
+      <p><strong>Submissions:</strong> 30/30</p>
+      <div class="actions">
+        <button onclick="openModal('gradingModal')">Grade Students</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Grading Modal -->
+<div class="modal" id="gradingModal">
+  <div class="modal-content">
+    <h3>Grade Student</h3>
+    <input type="text" id="studentName" placeholder="Student Name" />
+    <input type="number" id="studentMarks" placeholder="Marks (out of 50)" oninput="updatePercent()"/>
+    <input type="text" id="studentPercent" placeholder="Percentage" readonly />
+    <div class="modal-actions">
+      <button class="btn-close" onclick="closeModal('gradingModal')">Close</button>
+      <button class="btn-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Schedule Test Modal -->
+<div class="modal" id="scheduleModal">
+  <div class="modal-content">
+    <h3>Schedule New Test</h3>
+    <input type="date" placeholder="Date" />
+    <input type="text" placeholder="Class" />
+    <input type="text" placeholder="Section" />
+    <input type="text" placeholder="Subject" />
+    <select>
+      <option value="">Select Test Type</option>
+      <option>Unit Test</option>
+      <option>Midterm</option>
+      <option>Final Exam</option>
+      <option>Class Test</option>
+    </select>
+    <textarea rows="3" placeholder="Teacher's Comments"></textarea>
+    <div class="modal-actions">
+      <button class="btn-close" onclick="closeModal('scheduleModal')">Cancel</button>
+      <button class="btn-save">Schedule</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Add Button -->
+<div class="floating-btn" onclick="openModal('scheduleModal')">
+  + Schedule New Test
+</div>
+
+<script>
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function toggleAccordion(header) {
+    const body = header.nextElementSibling;
+    body.style.display = body.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  function updatePercent() {
+    const marks = parseFloat(document.getElementById('studentMarks').value) || 0;
+    const percent = ((marks / 50) * 100).toFixed(2);
+    document.getElementById('studentPercent').value = percent + '%';
+  }
+</script>
+
+</body>
+      </html>
