@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduBot | Messages</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f9; /* Light background color */
+      color: #333;
+    }
+
+    header {
+      background-color: #007bff; /* Primary color for header */
+      color: white;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-btn {
+      background: none;
+      color: white;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .profile-pic {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #ddd;
+      border: 2px solid white;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .chat-list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .chat-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .chat-item:hover {
+      background-color: #f1f1f1;
+    }
+
+    .chat-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ccc;
+      margin-right: 15px;
+    }
+
+    .chat-details {
+      flex-grow: 1;
+    }
+
+    .chat-name {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .chat-message {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .timestamp {
+      font-size: 0.8rem;
+      color: #aaa;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .fab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #28a745; /* Green for new messages */
+      color: white;
+      padding: 18px 22px;
+      border-radius: 50%;
+      font-size: 24px;
+      font-weight: bold;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .fab:hover {
+      background-color: #218838;
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <button class="back-btn" onclick="goBack()">← Back</button>
+  <span>Messages</span>
+  <div class="profile-pic"></div>
+</header>
+
+<main>
+  <ul class="chat-list">
+    <li class="chat-item">
+      <div class="chat-avatar"></div>
+      <div class="chat-details">
+        <div class="chat-name">John Doe</div>
+        <div class="chat-message">Hey, are we still on for the meeting tomorrow?</div>
+      </div>
+      <div class="timestamp">2 mins ago</div>
+    </li>
+    <li class="chat-item">
+      <div class="chat-avatar"></div>
+      <div class="chat-details">
+        <div class="chat-name">Jane Smith</div>
+        <div class="chat-message">The homework deadline has been extended.</div>
+      </div>
+      <div class="timestamp">1 hour ago</div>
+    </li>
+    <li class="chat-item">
+      <div class="chat-avatar"></div>
+      <div class="chat-details">
+        <div class="chat-name">Admin</div>
+        <div class="chat-message">Reminder: Parent-Teacher Meeting tomorrow at 4 PM.</div>
+      </div>
+      <div class="timestamp">Yesterday</div>
+    </li>
+  </ul>
+</main>
+
+<button class="fab" onclick="openChat()">+</button>
+
+<script>
+  function openChat() {
+    // Open a new chat screen (in a real app, this would open a conversation page)
+    alert('New chat');
+  }
+
+  function goBack() {
+    // Go back to the previous screen
+    window.history.back();
+  }
+</script>
+
+</body>
+</html>
